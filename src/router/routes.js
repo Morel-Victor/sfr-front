@@ -1,11 +1,7 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { name: 'pourquoi-choisir-sfr', path: '/pourquoi-choisir-sfr', component: () => import('pages/WhyUsPage.vue') },
-    ],
+    redirect: '/home',
   },
 
   // Always leave this as last one,
