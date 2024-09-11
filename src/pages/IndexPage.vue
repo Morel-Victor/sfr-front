@@ -1,13 +1,17 @@
 <template>
   <q-page>
-    <CarouselContainer />
-    <HomeComponentsInjection />
+    <ComponentsInjection :data="data"/>
   </q-page>
 </template>
 
 <script setup>
-import CarouselContainer from 'components/Carousel/CarouselContainer.vue';
-import HomeComponentsInjection from 'components/Home/HomeComponentsInjection.vue';
+import ComponentsInjection from 'components/ComponentsInjection.vue';
+
+defineProps({
+  data: {
+    type: Object,
+  },
+});
 </script>
 
 <style>

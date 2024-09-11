@@ -2,32 +2,33 @@
   <div class="carousel-container" aria-live="polite">
     <transition name="fade" mode="out-in">
       <div :key="carouselKey" class="reloaded-content">
-        <CarouselSlide :slideData="carouselData[currentSlide]"/>
+        <CarouselSlide :slideData="data.Slide[currentSlide]"/>
       </div>
     </transition>
     <div class="flex content">
       <div class="carousel-thumbnails">
         <div
           class="thumbnail"
-          v-for="(slide, index) in carouselData"
+          v-for="(slide, index) in data.Slide || []"
           :key="index"
           :class="{ active: index === currentSlide }"
           @click="changeSlide(index)"
         >
           <div class="row">
             <q-img
-              :src="'http://localhost:1337' + slide.attributes.icon.data.attributes.url"
+              :src="'http://localhost:1337' + slide.icon.data[0].attributes.url"
               :alt="'Slide ' + (index + 1) + ' thumbnail'"
               class="thumbnail-img"
             ></q-img>
             <div class="name">
-              {{ slide.attributes.name }}
+              {{ slide.name }}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -37,17 +38,16 @@ import {
   onUnmounted,
   ref,
 } from 'vue';
-import { api } from 'boot/axios';
 import CarouselSlide from 'components/Carousel/CarouselSlide.vue';
 
-const carouselData = ref([]);
 const currentSlide = ref(0);
 let timer = null;
-async function fetchCarousel() {
-  const url = 'carousel-containers?populate=deep';
-  const { data } = await api.get(url);
-  carouselData.value = data.data[0].attributes.carousel_categories.data;
-}
+
+const props = defineProps({
+  data: {
+    type: Object,
+  },
+});
 
 const changeSlide = (index) => {
   currentSlide.value = index;
@@ -55,19 +55,18 @@ const changeSlide = (index) => {
 
 const startAutoSlideChange = () => {
   timer = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % carouselData.value.length;
+    currentSlide.value = (currentSlide.value + 1) % props.data.Slide.length;
   }, 5000);
 };
 
 const carouselKey = computed(() => {
-  if (carouselData.value.length === 0) {
+  if (!props.data.Slide || props.data.Slide.length === 0) {
     return currentSlide.value;
   }
-  return carouselData.value[currentSlide.value].id;
+  return props.data.Slide[currentSlide.value].id;
 });
 
 onMounted(async () => {
-  await fetchCarousel();
   startAutoSlideChange();
 });
 
