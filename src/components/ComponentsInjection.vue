@@ -10,6 +10,7 @@
 <script setup>
 import { markRaw } from 'vue';
 
+import Carousel from 'components/Carousel/CarouselContainer.vue';
 import MainTitle from 'components/WhyUs/SectionMainTitle.vue';
 import Title from 'components/WhyUs/SectionTitle.vue';
 import Shop from 'components/WhyUs/SectionShop.vue';
@@ -27,6 +28,7 @@ defineProps({
 });
 
 const components = {
+  'carousel.carousel': Carousel,
   'home.section-title': HomeTitle,
   'home.best-for-you': Choose,
   'home.card': Good,

@@ -23,7 +23,7 @@
             <div v-if="data.priceByMonth" class="by-month">/mois</div>
           </div>
           <div v-for="text in data.priceText" :key="text.id" class="price-text col-12">{{ text.text }}</div>
-          <a class="button q-mt-sm" :href="data.button.url">{{ data.button.name }}</a>
+          <a class="button q-mt-sm" :href="data.button.url">{{ data.button }}</a>
         </div>
       </div>
     </div>
@@ -55,17 +55,17 @@ const processPrice = (priceString) => {
 };
 
 const data = ref({
-  title: props.slideData?.attributes?.slide?.data?.attributes?.title || '',
-  subTitle: props.slideData?.attributes?.slide?.data?.attributes?.subtitle || '',
-  img: props.slideData?.attributes?.slide?.data?.attributes?.img?.data?.attributes?.url || '',
-  background: props.slideData?.attributes?.slide?.data?.attributes?.background?.data?.attributes?.url || '',
-  lightBackground: props.slideData?.attributes?.slide?.data?.attributes?.lightBackground || false,
-  badge: props.slideData?.attributes?.slide?.data?.attributes?.badge || '',
-  price: props.slideData?.attributes?.slide?.data?.attributes?.price || '',
-  priceByMonth: props.slideData?.attributes?.slide?.data?.attributes?.priceByMonth || false,
-  priceText: props.slideData?.attributes?.slide?.data?.attributes?.priceText || [],
-  button: props.slideData?.attributes?.slide?.data?.attributes?.button || {},
-  offSetTop: props.slideData?.attributes?.slide?.data?.attributes?.imgOffsetTop || 40,
+  title: props.slideData?.title || '',
+  subTitle: props.slideData?.subtitle || '',
+  img: props.slideData?.img?.data?.attributes?.url || '',
+  background: props.slideData?.background?.data?.attributes?.url || '',
+  lightBackground: props.slideData?.lightBackground || false,
+  badge: props.slideData?.badge || '',
+  price: props.slideData?.price || '',
+  priceByMonth: props.slideData?.priceByMonth || false,
+  priceText: props.slideData?.priceText || [],
+  button: props.slideData?.button || 'En profiter',
+  offSetTop: props.slideData?.imgOffsetTop || 40,
 });
 
 const { firstPart, decimalPart } = processPrice(data.value.price);
@@ -92,6 +92,8 @@ function changeColorText() {
 }
 
 onMounted(() => {
+  console.log('Mounted Data:', data.value);
+  console.log('Mounted Data:', props.slideData);
   changeColorText();
 });
 </script>
@@ -157,6 +159,7 @@ onMounted(() => {
   display: inline-flex;
   width: fit-content;
   transition: box-shadow .2s cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
 }
 
 .button:hover {
