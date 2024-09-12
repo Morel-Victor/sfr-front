@@ -19,6 +19,7 @@ import HomeTitle from 'components/Home/SectionTitle.vue';
 import Choose from 'components/Home/SectionChoose.vue';
 import Good from 'components/Home/SectionGood.vue';
 import News from 'components/Home/SectionNews.vue';
+import Html from 'components/HtmlComponent.vue';
 
 defineProps({
   data: {
@@ -33,6 +34,7 @@ const components = {
   'home.best-for-you': Choose,
   'home.card': Good,
   'home.news': News,
+  'home.html': Html,
   'why-us.section-title': Title,
   'why-us.main-title': MainTitle,
   'why-us.shop': Shop,
