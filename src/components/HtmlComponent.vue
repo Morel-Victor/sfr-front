@@ -1,13 +1,17 @@
 <template>
-  <p>{{ data.text }}</p>
+  <div class="markdown-content" v-html="htmlContent" />
 </template>
 
 <script setup>
-defineProps({
+import { marked } from 'marked';
+
+const props = defineProps({
   data: {
     type: Object,
   },
 });
+
+const htmlContent = marked(props.data.text);
 </script>
 
 <style>

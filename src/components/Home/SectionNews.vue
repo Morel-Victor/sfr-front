@@ -1,6 +1,6 @@
 <template>
   <div class="news-container row justify-between">
-    <a :href="card.url" v-for="card in data.card" :key="card.id" class="card">
+    <a :href="card.url" v-for="card in data.card" :key="card.id" class="card col-4">
       <div class="card-header">
         <img class="img" :src="'http://localhost:1337' + card.img.data.attributes.url" alt=""/>
         <div class="badge">{{ card.badge }}</div>
@@ -10,9 +10,10 @@
         <div class="title">{{ card.title }}</div>
       </div>
     </a>
-    <div class="btn">
-      <a :href="data.button.url" class="choose-link">{{ data.button.text }}</a>
-    </div>
+
+  </div>
+  <div class="btn">
+    <a :href="data.button.url" class="choose-link">{{ data.button.text }}</a>
   </div>
 </template>
 
